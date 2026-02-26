@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple</title>
+</head>
+
+<body>
+
+    <button onclick="userInfo()">On Click</button>
+    <button onclick="add()">ADD</button>
+    <button onclick="minus()">MINUS</button>
+
+
+    <script>
+
+        var a = 25;    // ye globle hai insi validity life time hai // agar ye a = 25; function ke andar hota tho ye local hota or validity us funtion ka andar tak hi hoti us function ke baar uski validity katam ho jayegi
+        var b = 15;    // ye globle hai insi validity life time hai // agar ye a = 25; function ke andar hota tho ye local hota or validity us funtion ka andar tak hi hoti us function ke baar uski validity katam ho jayegi
+
+        function userInfo() {
+            console.log('Welcome');
+        }
+        function add() {
+            c = a + b;
+            console.log(c);
+        }
+        function minus() {
+            c = a - b;
+            console.log(c);
+        }
+    
+
+
+
+    </script>
+</body>
+
+</html>

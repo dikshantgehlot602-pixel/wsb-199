@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edvance</title>
+    <style>
+        .row {
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .image {
+            flex-basis: 50%;
+            margin: auto;
+        }
+
+        .image img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .output {
+            text-align: center;
+        }
+
+        .output img {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="output">
+        <img src="" id="output">
+    </div>
+
+    <div class="row">
+    </div>
+
+
+    <script>
+
+        var images = ['images/1.png', 'images/2.png'];
+        var store = '';
+
+        images.forEach((img) => {
+            store += `<div class="image">
+                        <img src="${img}" id="image_1"/>
+                      </div>`
+        })
+
+        document.querySelector('.row').innerHTML = store;
+
+        allimages = document.querySelectorAll('#image_1');
+
+        allimages.forEach((e) => {
+            e.addEventListener('click', () => {
+                document.getElementById('output').src = e.src;
+            })
+        })
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

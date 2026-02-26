@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = [1,2,3];
+        var b = [1,2,3];
+
+        var isEqual = true;
+
+        if(a.length !== b.length){
+            isEqual = false
+        }else{
+            for(var i = 0; i < a.length; i++){
+                if(a[i] !== b[i]){
+                    isEqual = false;
+                    break;
+                }
+
+            }
+        }
+        if(isEqual){
+            console.log('arrays are equal');
+        }else{
+            console.log('arrays are not equal')
+        }
+
+
+
+
+    </script>
+</body>
+</html>

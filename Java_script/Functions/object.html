@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var user = {
+            email: 'info@gmail.com',
+            name: 'sandeep'
+        }
+
+        console.log(user);
+        console.log(user.name);
+        user.mobile = 123456;
+
+        console.log(user);
+
+        var userInfo = [
+            {
+                email: 'info@gmail.com',
+                name: 'sandeep',
+                mobile: 123456
+            },
+            {
+                email: 'data@gmail.com',
+                name: 'rahul'
+            }
+
+        ];
+
+        console.log(userInfo);
+
+        for (var data of userInfo) {
+
+            if (data.name.toLowerCase() == 'rahul'){
+                console.log(data.name)
+                console.log(data.mobile)
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

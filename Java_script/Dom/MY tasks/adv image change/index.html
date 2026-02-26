@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .row_1 {
+            width: 550px;
+            height: 300px;
+            margin: auto;
+            margin-top: 15px;
+        }
+
+        .row_1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .row_2 {
+            width: 550px;
+            margin: auto;
+            display: flex;
+            flex-basis: 25%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            gap: 1%;
+        }
+
+        .room img {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="row_1">
+            <img src="images/4.jpg" id="output" />
+        </div>
+        <div class="row_2">
+        </div>
+    </div>
+</body>
+<script>
+    var images = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg']
+    var imageDiv = '';
+
+    images.forEach((img) => {
+        imageDiv += `<div class="room">
+                <img src="${img}" class='image'>
+            </div>`
+    })
+
+    document.querySelector('.row_2').innerHTML = imageDiv;
+
+    var allImages = document.querySelectorAll('.image');
+    allImages.forEach((v) => {
+        v.addEventListener('click', () => {
+            document.getElementById('output').src = v.src
+        })
+    })
+        ;</script>
+
+</html>

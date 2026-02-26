@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>num1</th>
+            <td><input type="text" id="num1"></td>
+        </tr>
+        <tr>
+            <th>opr</th>
+            <td>
+                <select name="" id="opr">
+                    <option value="">select</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>num2</th>
+            <td><input type="text" id="num2"></td>
+        </tr>
+        <tr>
+            <th><button onclick="mathCalc()">save</button></th>
+        </tr>
+        <tr>
+            <th>output</th>
+            <td><input type="text" id="output"></td>
+        </tr>
+    </table>
+</body>
+
+<script>
+    let num1Element = document.getElementById('num1');
+    let oprElement = document.getElementById('opr');
+    let num2Element = document.getElementById('num2');
+    let outputElement = document.getElementById('output');
+    function mathCalc() {
+        let num1Value = Number (num1Element.value);
+        let oprValue = oprElement.value;
+        let num2Value = Number (num2Element.value);
+        let output;
+        if (oprValue == '+') {
+            output = num1Value + num2Value
+        } else if (oprValue == '-') {
+            output = num1Value - num2Value
+        } else if (oprValue == '*') {
+            output = num1Value * num2Value
+        } else if (oprValue == '/') {
+            output = num1Value / num2Value
+        }
+        else{
+            output = 'unvalid opr'
+        }
+        outputElement.value = output
+    }
+
+
+
+</script>
+
+</html>

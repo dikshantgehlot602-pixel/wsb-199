@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .main{
+        width: 20%;
+        height: 20%;
+    }
+</style>
+
+<body>
+
+    <img src="images/off.jpg" alt="" id = 'img' class="main">
+
+    <button onclick="bulb('images/on.jpg')">ON </button>
+
+    <button onclick="bulb('images/off.jpg')">OFF</button>
+</body>
+<script>
+    var img = document.getElementById('img');
+
+    function bulb(x){
+        img.src = x;
+    }
+</script>
+
+</html>

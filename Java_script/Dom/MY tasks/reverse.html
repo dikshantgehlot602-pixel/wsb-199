@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // method 1 start
+
+        // function reversnumber1(num){
+        //    return Number(num.toString().split('').reverse().join(''))
+        // }
+
+        // let output = reversnumber1(953264);
+        // console.log(output);
+
+        // method 1 end
+
+        //   method 2 start
+
+        function reversnumber2(num) {
+            let reversed = 0;
+
+            while (num > 0) {
+                let lastdigit = num % 10
+                reversed = reversed * 10 + lastdigit
+                num = Math.floor(num / 10)
+            }
+            return reversed
+
+        }
+
+        let output = reversnumber2(953264);
+        console.log(output);
+
+        //   method 2 end
+
+
+    </script>
+</body>
+
+</html>

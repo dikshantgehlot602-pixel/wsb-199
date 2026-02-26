@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal</title>
+
+
+</head>
+<body>
+
+
+
+    <script>
+        var signal = prompt('enter the value (red, green, yellow)');
+
+        console.log(signal);
+        signal = signal.toUpperCase();
+        console.log(signal);
+        
+        if(signal == 'RED'){
+            document.write('<h1>red Signal</h1>');
+        } else if(signal == 'GREEN') {
+            document.write('<h1>Green signal</h1>')
+        } else if(signal == 'YELLOW'){
+            document.write('<h1>yellow signal</h1>')
+        } else {
+            document.write('<h1>invalid value</h1>')
+        }
+    </script>
+</body>
+</html>

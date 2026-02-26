@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = [1, 2, 3, 4, 5];
+        var b = [3, 4, 5, 6, 7];
+
+        var output = [];
+
+        for (var data of a) {
+            if (!b.includes(data)) {
+                output.push(data)
+            }
+
+        }
+        for (var data_2 of b) {
+            if (!a.includes(data_2)) {
+                output.push(data_2)
+            }
+
+        }
+        console.log(output);
+
+
+    </script>
+</body>
+
+</html>

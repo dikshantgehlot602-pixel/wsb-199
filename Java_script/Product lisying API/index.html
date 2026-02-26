@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Product Listing — Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">Shoply</div>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Search products, e.g. headphones" />
+      </div>
+      <nav class="header-actions">
+        <button class="icon-btn">🔔</button>
+        <button class="icon-btn">🛒</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Discover top products — curated for you</h1>
+        <p class="lead">Beautifully designed product cards, quick search, and responsive layout.</p>
+      </div>
+    </section>
+
+    <section class="products container">
+      <div class="controls">
+        <div class="results-count">Showing <span id="count">8</span> products</div>
+        <div class="sort">
+          <label>Sort:</label>
+          <select id="sort">
+            <option value="default">Recommended</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="grid" class="product-grid">
+        <!-- Product cards -->
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="js/custom.js"></script>
+</body>
+</html>

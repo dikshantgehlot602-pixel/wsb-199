@@ -1,0 +1,29 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.row{
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    margin-top: 50px;
+    gap: 50px;
+}
+.colum{
+    padding: 15px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 15px
+}
+.row button{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin: auto;
+    cursor: pointer;
+}

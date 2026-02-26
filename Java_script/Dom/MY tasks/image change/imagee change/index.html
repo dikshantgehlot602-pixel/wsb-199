@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .row{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            gap: 15px;
+        }
+        .image{
+            flex-basis: 50%;
+            margin: auto;
+        }
+        .image img{
+            height: 100%;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="image" onmouseover="imageChanger()" onmouseout="imageChanger()">
+            <img src="images/1.png" id="image_1">
+        </div>
+        <div class="image" onmouseover="imageChanger()" onmouseout="imageChanger()">
+            <img src="images/2.png" id="image_2">
+        </div>
+    </div>
+
+
+    <script>
+
+        function imageChanger(){
+            image_1 = document.getElementById('image_1').src;
+            image_2 = document.getElementById('image_2').src;
+
+            document.getElementById('image_1').src = image_2;
+            document.getElementById('image_2').src = image_1;
+
+            console.log(image_1);
+        }
+
+    </script>
+</body>
+
+</html>

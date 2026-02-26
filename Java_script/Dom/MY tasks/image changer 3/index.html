@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main{
+            max-width: 600px;
+            margin: auto;
+        }
+        .row_1{
+            width: 550px;
+            height: 300px;
+            margin: auto;
+            margin-top: 15px;
+        }
+        .row_1 img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .row_2{
+            width: 550px;
+            margin: auto;
+            display: flex;
+            flex-basis: 25%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            gap: 1%;
+        }
+        .room img{
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="row_1">
+             <img src="images/5.jpg" id="output"/>
+        </div>
+        <div class="row_2">
+            <div class="room">
+                <img src="images/1.jpg" id="image_1" onclick="imagechange(this)"/>
+            </div>
+            <div class="room">
+                <img src="images/2.jpg" id="image_2" onclick="imagechange(this)"/>
+            </div>
+            <div class="room">
+                <img src="images/3.jpg" id="image_3" onclick="imagechange(this)"/>
+            </div>
+            <div class="room">
+                <img src="images/4.jpg" id="image_4" onclick="imagechange(this)"/>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+        function imagechange(input){
+            document.getElementById('output').src = input.src;
+        }
+</script>
+</html>

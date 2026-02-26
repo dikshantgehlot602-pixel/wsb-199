@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        var num = Number(prompt('enter your value'));
+        var midvalue = Math.ceil (num/2)
+        var total = 0
+
+
+        for( var i = 1; i <= midvalue; i++){
+             if( num % i == 0){
+                total = total + i
+             }
+        }
+        
+        if(num == total){
+            document.write( num,'is a perfect number')
+        }
+        else {
+            document.write( num,'is not a aperfect number')
+        }
+    </script>
+</body>
+</html>

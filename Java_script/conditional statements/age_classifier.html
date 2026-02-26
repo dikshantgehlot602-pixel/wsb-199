@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>age classifier</title>
+</head>
+<body>
+    
+
+    <script>
+        var age = prompt('enter your age');
+        
+
+        if(age <= 2 && age >= 0){
+            document.write('<h1>Infant</h1>')
+        } else if(age >= 3 && age <= 5){
+            document.write('<h1>Toddler</h1>')
+        } else if (age >= 6 && age <= 12){
+            document.write('<h1>Child</h1>')
+        } else if (age >= 13 && age <= 17){
+            document.write('<h1>Teenager</h1>')
+        } else if (age >= 18){
+            document.write('<h1>Adult(18+)</h1>')
+        } else{
+            document.write('<h1>please write correctly</h1>')
+        }
+
+    </script>
+</body>
+</html>

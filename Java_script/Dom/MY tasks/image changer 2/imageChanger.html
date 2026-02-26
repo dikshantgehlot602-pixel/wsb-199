@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image changer</title>
+    <style>
+        .row{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            gap: 15px;
+        }
+        .image{
+            flex-basis: 50%;
+            margin: auto;
+        }
+        .image img{
+            height: 100%;
+            width: 100%;
+        }
+        .output{
+            text-align: center;
+        }
+        .output img{
+             width: 300px;
+             height: 400px;
+        }
+
+    </style>
+</head>
+
+<body>
+     <div class="output">
+        <img src="" id="output">
+     </div>
+
+    <div class="row">
+        <div class="image">
+            <img src="images/1.png" id="image_1" onmouseover="imageChanger(this)"/>
+        </div>
+        <div class="image">
+            <img src="images/2.png" id="image_2" onmouseover="imageChanger(this)"/>
+        </div>
+    </div>
+
+
+    <script>
+
+        function imageChanger(image){
+            document.getElementById('output').src = image.src;
+        }
+
+    </script>
+</body>
+
+</html>

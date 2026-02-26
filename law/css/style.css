@@ -1,0 +1,39 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.main_back_div{
+	width: 100%;
+}
+.main_div{
+	width: 1200px;
+	height: 460px;
+	border: 1px solid black;
+	margin: auto;
+	margin-top: 50px
+}
+.image{
+    position:relative;
+}
+.image img{
+	height: 190px;
+    width: 190px;
+    border-radius: 50%;
+}
+.name{
+	width: 100px;
+	height: 30px;
+	border-radius:10px ;
+	background: red;
+	position: absolute;
+	top: 212px;
+    left: 75px;
+}
+.air{
+	margin-left: 11px;
+	margin-top: 5px;
+}

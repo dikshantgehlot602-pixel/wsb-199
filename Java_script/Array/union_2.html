@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr_1 = [1,2,3]
+        var arr_2 = [3,4,5]
+        var newArray = [];
+
+        for(var data_1 of arr_1){
+            if(!newArray.includes(data_1)){
+                newArray.push(data_1);
+            }
+        }
+        for(var data_2 of arr_2){
+            if(!newArray.includes(data_2)){
+                 newArray.push(data_2);
+            }
+        }
+        console.log(newArray);
+
+
+
+    </script>
+</body>
+</html>
