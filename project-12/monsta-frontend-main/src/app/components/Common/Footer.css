@@ -1,0 +1,199 @@
+footer.footer_widgets {
+  font-family: "Rubik", sans-serif;
+}
+
+footer.footer_widgets .copyright_area > img {
+  display: inline-block;
+}
+
+/* next/image renders width/height attributes, but the theme's global
+   `img { max-width: 100%; height: auto; }` (public/css/style.css:172) overrides the
+   rendered height and leaves width alone, which makes Next log:
+     "Image with src ... has either width or height modified, but not the other."
+
+   Setting BOTH dimensions here keeps the aspect ratio and satisfies Next's check, so the
+   payment strip renders at exactly the requested 200x30 instead of being squashed. */
+footer.footer_widgets .copyright_area > img {
+  width: 200px;
+  height: 30px;
+  max-width: 100%;
+}
+
+/* Keep each Top Rated widget image in a fixed column and constrain its text
+   column so long product names cannot collide with the image. */
+footer.footer_widgets .simple_product_items {
+  align-items: flex-start;
+}
+
+footer.footer_widgets .simple_product_thumb {
+  flex: 0 0 80px;
+  width: 80px;
+}
+
+footer.footer_widgets .simple_product_thumb a {
+  display: block;
+}
+
+footer.footer_widgets .simple_product_thumb img {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+footer.footer_widgets .simple_product_content {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  margin-left: 12px;
+}
+
+footer.footer_widgets .simple_product_content .product_name h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+footer.footer_widgets .simple_product_content .product_price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+
+/* ==========================================
+   FOOTER — RESPONSIVE
+   ========================================== */
+
+/* Tablet: footer widgets stack */
+@media only screen and (max-width: 991px) {
+  footer.footer_widgets .footer_top .row {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  footer.footer_widgets .footer_top .row > * {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  footer.footer_widgets .widgets_container {
+    margin-bottom: 20px;
+  }
+
+  footer.footer_widgets .widgets_container h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  /* Top rated products: stack image and content on mobile */
+  footer.footer_widgets .simple_product_items {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  footer.footer_widgets .simple_product_thumb {
+    flex: 0 0 auto;
+    width: 80px;
+    height: 80px;
+  }
+
+  footer.footer_widgets .simple_product_content {
+    flex: 1 1 auto;
+    width: auto;
+    margin-left: 0;
+  }
+
+  footer.footer_widgets .simple_product_content .product_name h3 {
+    font-size: 16px;
+  }
+}
+
+/* Mobile: single column, centered text */
+@media only screen and (max-width: 767px) {
+  footer.footer_widgets .container {
+    padding: 0 15px;
+  }
+
+  footer.footer_widgets .footer_top {
+    padding: 40px 0;
+  }
+
+  footer.footer_widgets .footer_top .row {
+    gap: 25px;
+  }
+
+  footer.footer_widgets .widgets_container h3 {
+    font-size: 18px;
+  }
+
+  footer.footer_widgets .footer_contact p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  footer.footer_widgets .footer_contact ul {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+
+  footer.footer_widgets .footer_contact ul li {
+    margin: 0;
+  }
+
+  footer.footer_widgets .footer_menu ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  footer.footer_widgets .footer_menu ul li {
+    margin-bottom: 8px;
+  }
+
+  footer.footer_widgets .footer_menu ul li a {
+    font-size: 14px;
+  }
+
+  /* Bottom bar */
+  footer.footer_widgets .footer_bottom {
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  footer.footer_widgets .copyright_area {
+    text-align: center;
+  }
+
+  footer.footer_widgets .copyright_area > p {
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
+
+  footer.footer_widgets .copyright_area > img {
+    width: 150px;
+    height: auto;
+    aspect-ratio: 200/30;
+  }
+}
+
+/* Extra small mobile */
+@media only screen and (max-width: 479px) {
+  footer.footer_widgets .widgets_container h3 {
+    font-size: 17px;
+  }
+
+  footer.footer_widgets .simple_product_thumb {
+    width: 70px;
+    height: 70px;
+  }
+
+  footer.footer_widgets .simple_product_thumb img {
+    width: 70px;
+    height: 70px;
+  }
+}

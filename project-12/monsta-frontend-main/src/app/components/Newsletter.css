@@ -1,0 +1,103 @@
+/* ==========================================
+   NEWSLETTER SECTION — RESPONSIVE
+   ========================================== */
+
+.newsletter_area {
+  overflow: hidden;
+}
+
+.newsletter_area .newsletter_content {
+  text-align: center;
+}
+
+.newsletter_area .newsletter_content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #242424;
+  margin: 0 0 10px;
+}
+
+.newsletter_area .newsletter_content p {
+  font-size: 14px;
+  color: #5a5a5a;
+  margin: 0 0 20px;
+}
+
+.newsletter_area .subscribe_form .form-group {
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter_area .subscribe_form input[type="email"] {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  font-size: 14px;
+  min-width: 0;
+}
+
+.newsletter_area .subscribe_form button {
+  padding: 12px 20px;
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  background: #c09578;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.newsletter_area .subscribe_form button:hover {
+  background: #242424;
+}
+
+.newsletter_area .subscribe_form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.newsletter_area .text-muted {
+  font-size: 12px;
+  color: #888;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media only screen and (max-width: 767px) {
+  .newsletter_area {
+    padding: 30px 0;
+  }
+
+  .newsletter_area .newsletter_content h2 {
+    font-size: 24px;
+  }
+
+  .newsletter_area .subscribe_form .form-group {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .newsletter_area .subscribe_form input[type="email"],
+  .newsletter_area .subscribe_form button {
+    width: 100%;
+  }
+
+  .newsletter_area .subscribe_form button {
+    border-radius: 3px;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .newsletter_area .newsletter_content h2 {
+    font-size: 20px;
+  }
+}

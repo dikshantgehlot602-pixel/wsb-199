@@ -1,0 +1,535 @@
+@import "tailwindcss";
+
+:root {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+ 
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #fafafa;
+  color: #111;
+  overflow-x: hidden;
+}
+ 
+/*
+  CHANGED: was `img { height: auto }` which broke fixed-height image wrappers.
+  Now only non-.product_image images get height:auto.
+  .product_image overrides height with !important in ProductCard.css anyway,
+  but removing the global conflict is cleaner.
+*/
+img:not(.product_image):not(.wishlist_icon) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+ 
+/* product images need explicit height to fill their wrapper */
+.product_image {
+  max-width: 100%;
+  display: block;
+}
+ 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+ 
+/* Container & Bootstrap-like Grid */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  padding-bottom: 15px;
+}
+ 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+}
+ 
+/* Grid column vertical rhythm.
+   Column WIDTHS come from Bootstrap 5 (public/css/plugins.css), which is
+   already loaded and defines .col-* inside its own media queries. The
+   .col-lg-* / .col-md-6 / .col-12 overrides that used to live here had no
+   media queries, so their flex-basis leaked below 992px and overrode
+   Bootstrap's stacking (e.g. the /shop sidebar and listing never became
+   full width on tablet/mobile). Bootstrap only sets HORIZONTAL padding on
+   `.row > *`, so the vertical padding is kept here to preserve row spacing. */
+.col-12,
+.col-lg-4,
+.col-lg-9,
+.col-lg-3,
+.col-lg-2,
+.col-md-6 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+ 
+.product_area {
+  width: 100%;
+}
+ 
+.product_container {
+  width: 100%;
+}
+
+/*
+  Phase 1.1 — Fonts (self-hosted, latin subset)
+  These @font-face rules register the exact family names the existing theme CSS
+  (public/css/style.css) already references: "Playfair Display" (weights 400-700,
+  variable font) and "Prata" (weight 400). No theme CSS changes were needed.
+  Files are served locally from /public/fonts — no external requests at runtime.
+*/
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Prata";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/prata-400.woff2") format("woff2");
+}
+
+
+/* ==========================================================
+   MONSTA RESPONSIVE LAYOUT SYSTEM
+   These overrides run after the legacy theme styles and keep
+   the original desktop visual identity intact.
+   ========================================================== */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 991.98px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .row {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .row > [class*="col-"] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .product_section,
+  .bestselling_section,
+  .shipping_area,
+  .newsletter_area,
+  .banner_fullwidth {
+    overflow: hidden;
+  }
+
+  .product_section .container,
+  .bestselling_section .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .shop_area,
+  .product_details,
+  .contact_area,
+  .about_section,
+  .faq_area {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  body {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+  }
+
+  .row {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+
+  .row > [class*="col-"] {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  /* Consistent section rhythm */
+  .product_section {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .product_section .section_title,
+  .product_section .product_area > h2,
+  .product_section .section_heading {
+    margin-bottom: 18px;
+  }
+
+  .product_tab_button {
+    margin-bottom: 18px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product_tab_button .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 18px;
+    min-width: max-content;
+    padding: 0 0 8px;
+  }
+
+  .product_tab_button .nav li {
+    flex: 0 0 auto;
+  }
+
+  .product_tab_button .nav li a {
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  /* Two product cards per row on mobile */
+  .product_section .product_container > .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -7px;
+    margin-right: -7px;
+  }
+
+  .product_section .product_container > .row > [class*="col-"] {
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: 50%;
+    padding: 7px;
+  }
+
+  .product_card {
+    min-width: 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+
+  .product_image_wrapper {
+    aspect-ratio: 1 / 1;
+  }
+
+  .product_card .product_details {
+    padding: 10px 8px 0;
+    margin-bottom: 12px !important;
+  }
+
+  .product_title {
+    font-size: 13px;
+    line-height: 1.35;
+    min-height: 34px;
+  }
+
+  .product_category a {
+    font-size: 10px;
+  }
+
+  .product_pricing {
+    gap: 5px;
+    margin: 7px 0;
+  }
+
+  .old_price,
+  .new_price {
+    font-size: 12px;
+  }
+
+  .product_actions {
+    gap: 5px;
+  }
+
+  .product_card .wishlist_btn {
+    width: 38px;
+    min-width: 38px;
+    height: 40px;
+    min-height: 40px;
+  }
+
+  .product_card .cart_btn {
+    height: 40px;
+    min-width: 0;
+    max-width: none;
+    padding: 0 5px;
+    font-size: 11px;
+  }
+
+  /* Carousel cards stay sized by Swiper; don't force the grid rule onto them. */
+  .bestselling_swiper .swiper-slide {
+    height: auto;
+  }
+
+  .bestselling_title {
+    font-size: 23px;
+    line-height: 1.2;
+  }
+
+  .bestselling_section {
+    padding: 30px 0;
+  }
+
+  .bestselling_header {
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .carousel_nav {
+    flex: 0 0 auto;
+  }
+
+  .banner_fullwidth {
+    min-height: 220px;
+    padding: 34px 12px;
+    background-position: center;
+  }
+
+  .banner_fullwidth .banner_text {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .banner_fullwidth .banner_text h2 {
+    font-size: clamp(23px, 6vw, 32px);
+    line-height: 1.2;
+  }
+
+  .banner_fullwidth .banner_text span {
+    display: block;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 8px 0 15px;
+  }
+
+  .shipping_area {
+    padding: 24px 0;
+  }
+
+  .shipping_area .row {
+    justify-content: center;
+  }
+
+  .shipping_area .col-lg-4 {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .shipping_area .single-shipping {
+    margin-bottom: 12px;
+  }
+
+  .newsletter_area {
+    padding: 28px 0;
+  }
+
+  .newsletter_area .newsletter_content h2 {
+    font-size: 23px;
+    line-height: 1.25;
+  }
+
+  /* General content pages */
+  .page_title,
+  .breadcrumb_area {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .page_title h1,
+  .breadcrumb_area h1 {
+    font-size: 25px;
+    line-height: 1.25;
+  }
+
+  /* Shop page sidebar and product listing */
+  .shop_area .row {
+    align-items: flex-start;
+  }
+
+  .shop_area .shop_sidebar,
+  .shop_area .sidebar_widget {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .shop_toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .shop_toolbar .page_amount,
+  .shop_toolbar .orderby_wrapper {
+    margin: 0;
+  }
+
+  /* Forms and inputs */
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+  }
+
+  .contact_form,
+  .contact_form form,
+  .login_form,
+  .register_form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Dashboard */
+  .dashboard_layout {
+    padding: 24px 15px;
+  }
+
+  .dashboard_content {
+    min-width: 0;
+    padding: 16px;
+  }
+
+  .dashboard_table_wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Checkout */
+  .checkout_layout {
+    width: 100%;
+    gap: 20px;
+  }
+
+  /* Cart and data tables */
+  .cart_table_wrap,
+  .dashboard_table_wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Footer */
+  footer.footer_widgets .footer_top {
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .product_section .product_container > .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .product_section .product_container > .row > [class*="col-"] {
+    padding: 5px;
+  }
+
+  .product_card .product_details {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .product_title {
+    font-size: 12px;
+  }
+
+  .product_card .cart_btn {
+    font-size: 10px;
+  }
+
+  .bestselling_title {
+    font-size: 20px;
+  }
+
+  .bestselling_header {
+    flex-wrap: wrap;
+  }
+
+  .checkout_layout {
+    padding: 20px 12px;
+  }
+
+  .dashboard_content {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .product_section .product_container > .row > [class*="col-"] {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product_image_wrapper {
+    aspect-ratio: 1.25 / 1;
+  }
+
+  .header_middel .logo a img {
+    width: 88px;
+  }
+
+  .header_middel .middel_right {
+    gap: 0;
+  }
+}

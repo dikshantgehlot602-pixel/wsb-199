@@ -1,0 +1,84 @@
+/* /wishlist page — uses existing theme breadcrumb + product card grid.
+   Light touch styling for the empty state and section spacing only. */
+
+.wishlist_area {
+  padding: 15px 0 70px;
+}
+
+@media only screen and (max-width: 767px) {
+  .wishlist_area {
+    padding-bottom: 46px;
+  }
+
+  .breadcrumbs_area .breadcrumb_content h3 {
+    font-size: 18px;
+  }
+}
+
+.wishlist_empty {
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px solid #ebebeb;
+  background: #fff;
+}
+
+.wishlist_empty_text {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  color: #242424;
+  margin: 0 0 10px;
+}
+
+.wishlist_empty_sub {
+  font-size: 14px;
+  color: #5a5a5a;
+  margin: 0 0 20px;
+}
+
+.wishlist_empty_btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #c09578;
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+}
+
+.wishlist_empty_btn:hover {
+  background: #242424;
+  color: #fff;
+}
+
+/* ==========================================
+   WISHLIST — EXTENDED RESPONSIVE
+   ========================================== */
+
+/* Mobile: ensure empty state doesn't overflow */
+@media only screen and (max-width: 575px) {
+  .wishlist_empty {
+    padding: 40px 16px;
+  }
+
+  .wishlist_empty_text {
+    font-size: 20px;
+  }
+
+  .wishlist_empty_sub {
+    font-size: 13px;
+  }
+
+  .wishlist_empty_btn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+/* Extra small mobile */
+@media only screen and (max-width: 479px) {
+  .wishlist_empty {
+    padding: 30px 12px;
+  }
+}

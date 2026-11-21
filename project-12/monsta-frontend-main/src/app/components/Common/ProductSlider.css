@@ -1,0 +1,187 @@
+/* ==========================================
+   PRODUCT SLIDER (reusable product carousel)
+   Used by /product/[slug] for the "Related Products" and "Upsell Products" rows.
+   Self-contained on purpose: it does not depend on BestsellingProducts.css,
+   because that stylesheet is only loaded on the pages rendering that section.
+   ========================================== */
+
+.product_slider_section {
+  overflow: hidden;
+  padding: 40px 0;
+  background-color: #fff;
+}
+
+/* Two sliders in a row (Related + Upsell) - keep the gap between them tight. */
+.product_slider_section + .product_slider_section {
+  padding-top: 0;
+}
+
+/* ── Header: title on the left, view-all + arrows on the right ── */
+.product_slider_header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.product_slider_heading {
+  min-width: 0;
+}
+
+.product_slider_title {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #242424;
+  text-transform: capitalize;
+}
+
+/* Short gradient rule under the title, on the header's bottom border. */
+.product_slider_title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #c09578, #e6cbb8);
+}
+
+.product_slider_subtitle {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #5a5a5a;
+}
+
+.product_slider_nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+}
+
+.product_slider_view_all {
+  margin-right: 6px;
+  font-size: 14px;
+  color: #242424;
+  text-transform: capitalize;
+  transition: color 0.3s ease;
+}
+
+.product_slider_view_all:hover {
+  color: #c09578;
+}
+
+/* ── Arrows ── */
+.product_slider_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  font-size: 16px;
+  color: #242424;
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.product_slider_arrow:hover {
+  background-color: #c09578;
+  border-color: #c09578;
+  color: #fff;
+}
+
+/* Swiper adds swiper-button-lock to the arrow it cannot scroll further in. */
+.product_slider_arrow.swiper-button-lock {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.product_slider_arrow.swiper-button-lock:hover {
+  background-color: #fff;
+  border-color: #d0d0d0;
+  color: #242424;
+}
+
+/* ── Track ── */
+.product_slider_wrapper {
+  position: relative;
+  padding: 5px 2px;
+}
+
+/* Equal card heights: stretch each slide's child to the tallest one. */
+.product_slider_swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.product_slider_swiper .swiper-slide > * {
+  width: 100%;
+}
+
+/* Respect the OS "reduce motion" setting for the slide animation. */
+@media (prefers-reduced-motion: reduce) {
+  .product_slider_swiper,
+  .product_slider_swiper * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media only screen and (max-width: 1199px) {
+  .product_slider_title {
+    font-size: 26px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .product_slider_section {
+    padding: 30px 0;
+  }
+
+  .product_slider_section + .product_slider_section {
+    padding-top: 0;
+  }
+
+  .product_slider_header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .product_slider_title {
+    font-size: 21px;
+  }
+
+  .product_slider_title::after {
+    bottom: -13px;
+  }
+
+  .product_slider_arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .product_slider_view_all {
+    font-size: 13px;
+  }
+}

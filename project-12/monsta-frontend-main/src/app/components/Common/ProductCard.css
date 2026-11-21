@@ -1,0 +1,336 @@
+/* ==========================================
+   PRODUCT CARD COMPONENT
+   Used in: ProductTabs (grid), BestsellingProducts (carousel)
+   ==========================================
+   
+   KNOWN GLOBAL CONFLICTS — OVERRIDDEN HERE:
+   
+   1. style.css: `.product_container button { display: none !important; }`
+      → Overridden by `.product_card .wishlist_btn` and `.product_card .cart_btn`
+        using display:flex with higher specificity selector below.
+   
+   2. style.css: `.product_details { margin-bottom: 70px; }`
+      → Overridden by `.product_card .product_details { margin-bottom: 0; }`
+   
+   3. globals.css: `img { height: auto; display: block; max-width: 100%; }`
+      → .product_image uses explicit height:100% with !important to win.
+   ========================================== */
+
+/* ── Card shell ── */
+.product_card {
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.product_image_wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.6;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.product_image_link {
+    /* next/image's `fill` prop renders the image with position:absolute and
+       resolves it against the nearest positioned ancestor. Without this, the
+       absolute image falls through to .product_image_wrapper instead of the
+       link, so the anchor stops being the containing block and the image is
+       clipped/misaligned on hover. */
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.product_image {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product_card .product_details {
+    text-align: center;
+    flex-direction: column;
+    flex: 1;
+    padding: 15px 15px 0;
+    display: flex;
+    margin-bottom: 30px !important;
+}
+
+/* ── Category label ── */
+.product_category {
+    margin-bottom: 6px;
+}
+
+.product_category a {
+    color: #5a5a5a;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: none;
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    display: inline-block;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.product_category a:hover {
+    color: #c09578;
+}
+
+/* ── Product title ── */
+.product_title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #242424;
+    margin: 0;
+    padding: 0 0 10px 0;
+    line-height: 1.3;
+    position: relative;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product_title a {
+    color: #242424;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.product_title a:hover {
+    color: #c09578;
+}
+
+.product_title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 1px;
+    background-color: #ebebeb;
+}
+
+/* ── Pricing ── */
+.product_pricing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.old_price {
+    color: #888;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
+.new_price {
+    color: #c09578;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ── Flex spacer — pushes action row to card bottom ── */
+.product_spacer {
+    flex: 1;
+}
+
+/* ── Action buttons row ── */
+.product_actions {
+    display: flex !important;
+    justify-content: center;
+    align-items: stretch;
+    gap: 1%;
+    width: 100%;
+}
+
+.product_card .wishlist_btn,
+.product_card .cart_btn {
+    display: flex !important;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #242424;
+    font-family: inherit;
+    text-decoration: none;
+}
+
+/* ── Wishlist button ── */
+.product_card .wishlist_btn {
+    border-right: 1px solid #ebebeb;
+    border-radius: 0;
+    flex-shrink: 0;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    background-color: #EEEEEE;
+}
+
+.product_card .wishlist_btn:hover {
+    background-color: #fdf5f0;
+}
+
+/* Wishlisted (active) state — filled red heart + tinted background.
+   Stays visually distinct from hover so users can see it's saved. */
+.product_card .wishlist_btn.active {
+    background-color: #fcebe7;
+    color: #e63946;
+}
+
+.product_card .wishlist_btn .wishlist_icon.wishlisted {
+    color: #e63946;
+}
+
+.wishlist_icon {
+    object-fit: contain;
+    width: 20px;
+    max-width: 20px;
+    height: 20px !important;
+    display: block !important;
+}
+
+/* ── Cart button ── */
+.product_card .cart_btn {
+    text-transform: none;
+    white-space: nowrap;
+    letter-spacing: .01em;
+    color: #242424;
+    flex: 1;
+    height: 35px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: #EEEEEE;
+    max-width: 109px;
+}
+
+.product_card .cart_btn:hover {
+    background-color: #c09578;
+    color: #fff;
+}
+
+.product_card .cart_btn:active {
+    transform: scale(0.98);
+}
+
+/* ── Carousel card variant — inherits all above ── */
+/* .carousel_card {
+    box-shadow: none;
+} */
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media only screen and (max-width: 767px) {
+    .product_card .product_details {
+        padding: 15px 12px 0;
+    }
+
+    .product_title {
+        font-size: 14px;
+        min-height: 30px;
+    }
+
+    .product_pricing {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .old_price {
+        font-size: 12px;
+    }
+
+    .new_price {
+        font-size: 13px;
+    }
+
+    .product_card .wishlist_btn {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+    }
+
+    .product_card .cart_btn {
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .wishlist_icon {
+        width: 16px;
+        max-width: 16px;
+        height: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .product_card .product_details {
+        padding: 15px 10px 0;
+    }
+
+    .product_title {
+        font-size: 13px;
+        min-height: 28px;
+        padding: 0 0 8px 0;
+    }
+
+    .product_category a {
+        font-size: 11px;
+    }
+
+    .product_card .wishlist_btn {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+    }
+
+    .product_card .cart_btn {
+        height: 40px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .product_card .wishlist_btn {
+        width: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        height: 44px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .product_card .wishlist_btn {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        min-height: 44px;
+    }
+}

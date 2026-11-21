@@ -1,0 +1,36 @@
+/* TrendingBanner-specific styles. Text/CTA typography and the section's
+   row heights come from the theme (.banner_fullwidth, .banner_text in
+   public/css/style.css). This file only carries the background image (the
+   theme's default points at ../img/bg/banner4.jpg, which doesn't exist in
+   this project). The reference serves the same banner as an inline
+   style="background: ..." on the section; here it is the exact reference
+   asset, converted from its served (mislabelled) WebP container to a
+   real JPEG at identical 1920x451 dimensions. */
+
+section.banner_fullwidth {
+  background-image: url('/images/trending-banner.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media only screen and (max-width: 767px) {
+  section.banner_fullwidth {
+    padding: 40px 15px;
+    background-position: center;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  section.banner_fullwidth {
+    padding: 30px 15px;
+  }
+}

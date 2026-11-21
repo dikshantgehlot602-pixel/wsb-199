@@ -1,0 +1,171 @@
+/* ==========================================
+   BESTSELLING PRODUCTS SECTION
+   ========================================== */
+ 
+.bestselling_section {
+  overflow: hidden;
+  padding: 60px 0;
+  background-color: white;
+}
+ 
+/* ── Header: title + nav arrows ── */
+.bestselling_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ebebeb;
+}
+ 
+.bestselling_title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #242424;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+ 
+/* ── Carousel arrows ── */
+.carousel_nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 2px;
+}
+ 
+.carousel_arrow {
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #242424;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+ 
+.carousel_arrow:hover {
+  background-color: #c09578;
+  color: #fff;
+  border-color: #c09578;
+}
+
+/* ── Carousel wrapper ── */
+.bestselling_carousel_wrapper {
+  position: relative;
+  overflow: visible;
+  padding: 0 2px;
+}
+
+.bestselling_carousel_wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80px;
+  width: 78px;
+  height: 100%;
+  background: linear-gradient(to left, #ffffff);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.bestselling_carousel_wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -80;
+  width: 78px;
+  height: 100%;
+  background: linear-gradient(to right, #ffffff);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.bestselling_swiper {
+  overflow: visible;
+  padding: 20px 4px !important;
+  margin: -20px -4px !important;
+}
+ 
+/* Make all swiper slides equal height by stretching their flex child */
+.bestselling_swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: stretch;
+}
+ 
+.bestselling_swiper .swiper-slide > * {
+  width: 100%;
+}
+ 
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+ 
+@media only screen and (max-width: 1199px) {
+  .bestselling_title {
+    font-size: 28px;
+  }
+}
+ 
+@media only screen and (max-width: 767px) {
+  .bestselling_section {
+    padding: 40px 0;
+  }
+ 
+  .bestselling_header {
+    margin-bottom: 20px;
+  }
+ 
+  .bestselling_title {
+    font-size: 22px;
+  }
+ 
+  .carousel_arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  /* Stack header title and arrows vertically on mobile */
+  .bestselling_header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+}
+
+/* Small mobile: ensure arrows don't wrap awkwardly */
+@media only screen and (max-width: 479px) {
+  .bestselling_header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .bestselling_title {
+    font-size: 20px;
+  }
+
+  .carousel_nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel_arrow {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+}

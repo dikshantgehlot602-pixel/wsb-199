@@ -1,0 +1,116 @@
+/* /about-us — minimal page CSS only where the theme (style.css "about page css")
+   is silent: ensure images fill their container at every width so they never
+   cause horizontal overflow. Everything else uses existing theme classes. */
+
+.about_content .about_thumb img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery_thumb img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Give the "Why chose us?" icon a bit of breathing room (theme provides no
+   spacer for the icon element itself). */
+.single_chose i {
+  display: block;
+  font-size: 36px;
+  color: #c09578;
+  margin-bottom: 12px;
+}
+
+/* When a "Why chose us?" card comes from the admin panel it shows the uploaded
+   image instead of a font icon. The .chose_icone wrapper has no theme rule, so
+   size it here: a square, centred box that keeps every card the same height
+   regardless of the uploaded image's aspect ratio, and never overflows. */
+.chose_icone {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f7f2ee;
+}
+
+.chose_icone img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ==========================================
+   ABOUT US — RESPONSIVE
+   ========================================== */
+
+/* Tablet: adjust gallery columns */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .chose_title h1 {
+    font-size: 28px;
+  }
+
+  .about_gallery_content h3 {
+    font-size: 18px;
+  }
+}
+
+/* Mobile: stack content, adjust font sizes */
+@media only screen and (max-width: 767px) {
+  .breadcrumbs_area .breadcrumb_content h3 {
+    font-size: 18px;
+  }
+
+  .chose_title h1 {
+    font-size: 24px;
+  }
+
+  .single_chose h3 {
+    font-size: 18px;
+  }
+
+  .single_chose p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .about_gallery_section .single_gallery_section h3 {
+    font-size: 18px;
+  }
+
+  .about_gallery_section .single_gallery_section p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .about_content h1 {
+    font-size: 24px;
+  }
+
+  .about_content p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* Extra small mobile */
+@media only screen and (max-width: 479px) {
+  .chose_title h1 {
+    font-size: 20px;
+  }
+
+  .single_chose h3 {
+    font-size: 17px;
+  }
+
+  .about_gallery_section .single_gallery_section h3 {
+    font-size: 17px;
+  }
+}

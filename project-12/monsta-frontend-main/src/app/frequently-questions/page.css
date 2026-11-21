@@ -1,0 +1,33 @@
+/* /frequently-questions — minimal additions. The theme's faq accordion CSS
+   (public/css/style.css "faq page css here") covers the accordion itself,
+   including the plus/minus icon swap and the open panel's #c09578 borders.
+   This file only provides the answer body's padding/typography and
+   overflow safety on small screens. */
+
+/* Keep closed panels out of layout and make the active answer explicit. */
+.accordion_area .collapse:not(.show) {
+  display: none;
+}
+
+.accordion_area .collapse.show {
+  display: block;
+  height: auto;
+  visibility: visible;
+}
+
+.accordion_area .card-body {
+  padding: 16px 20px;
+  background: #fff;
+}
+
+.accordion_area .card-body p {
+  color: #5a5a5a;
+  font-size: 14px;
+  line-height: 26px;
+}
+
+/* Keep long questions/answers wrapping instead of overflowing on small screens */
+.accordion_area .card-header.card_accor button {
+  overflow-wrap: anywhere;
+  white-space: initial;
+}

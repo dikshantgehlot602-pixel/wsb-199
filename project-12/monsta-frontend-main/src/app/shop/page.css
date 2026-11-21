@@ -1,0 +1,573 @@
+/* /shop — light styling on top of the existing theme (widget_list, shop_toolbar,
+   page_amount, orderby_wrapper). Covers only what the theme doesn't provide:
+   the in-toolbar sort list, sidebar active state and empty state. */
+
+/* Sidebar: highlight the active category.
+   The theme styles `li.active > a`, but the category links carry the `active` class on the
+   <a> itself (so a parent category and its sub-category can be marked independently), so both
+   selectors are needed. */
+.shop_facets .shop_facet_list > li > a {
+  position: relative;
+}
+
+.shop_facets .shop_facet_list > li.active > a,
+.shop_facets .shop_facet_list > li > a.active {
+  color: #c09578;
+}
+
+/* Nested sub-category list, shown under its parent category. */
+.widget_list.widget_categories .shop_sub_categories {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 14px;
+}
+
+.widget_list.widget_categories .shop_sub_categories>li>a {
+  /* `display: flex` (not `block`) so the `gap` between the checkbox and the label actually
+     applies here too -- `gap` is ignored on a non-flex, non-grid box, which left these nested
+     rows with the checkbox glued to the text while the top-level rows looked correct. */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+
+.widget_list.widget_categories .shop_sub_categories>li>a:hover,
+.widget_list.widget_categories .shop_sub_categories>li>a.active {
+  color: #c09578;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Reference-parity sidebar facets: Categories / Material / Color / Filter By
+   Price, each a bold heading with checkbox-style rows.
+   ───────────────────────────────────────────────────────────────────────────── */
+.shop_facets h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 12px;
+}
+
+.collapsible_filter_heading {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  margin: 0 0 12px;
+  background: transparent;
+  color: #212121;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.collapsible_filter_heading i {
+  display: none;
+}
+
+.collapsible_filter_body {
+  display: block;
+}
+
+.shop_facet_list {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.shop_facet_list > li {
+  margin: 0 0 8px;
+}
+
+/* Specificity matters here. The theme sets `display: block` and `font-size: 14px` on
+   `.widget_list.widget_categories>ul>li>a` (2 classes + 1 type = 0,2,1), which outranks a plain
+   `.shop_facet_list > li > a` (1 class + 2 types = 0,1,2). So this rule alone would have left the
+   rows as plain blocks with no `gap` and the wrong size -- which is why the Material and Color
+   checkboxes looked glued to their labels even though the rule below sets a 12px gap.
+
+   Adding `widget_categories` here lifts this selector to 0,2,2, so it wins and every facet row
+   (Categories, Material, Color) is a flex row with a 12px gap and 13px desktop text. */
+.widget_list.widget_categories .shop_facet_list > li > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+
+.shop_facet_list > li > a:hover {
+  color: #c09578;
+}
+
+.shop_facet_list > li.active > a,
+.shop_facet_list > li.active > a .shop_facet_label {
+  color: #c09578;
+  font-weight: 600;
+}
+
+/* The reference renders these as checkboxes. It is decorative -- the <a> is the
+   real control -- so it must not be read by assistive tech.
+
+   The tick is drawn with a rotated pseudo-element border rather than an icon font.
+   Font Awesome's `.fa` brings its own line-height and vertical-align, which fought the
+   flex centring and made the mark sit low inside the box; a two-border trick needs no
+   font and is pixel-consistent everywhere. `box-sizing: border-box` keeps the border
+   inside the declared size, and `flex: 0 0 auto` stops the box being squeezed when a
+   long label wraps. */
+.shop_check {
+  /* `display` is what makes width/height apply at all. An inline element ignores both, which is
+     why the box previously collapsed to a vertical sliver: the top-level rows are flex
+     (`.shop_facet_list > li > a`), but sub-category rows are `display: block`
+     (`.widget_list .shop_sub_categories > li > a`), where the <span> stayed inline and its
+     16px x 16px box was thrown away. Declaring it here makes the box render identically in both
+     contexts, instead of relying on each parent's display mode. */
+  display: inline-block;
+  vertical-align: middle;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #c9c9c9;
+  border-radius: 2px;
+  background: #fff;
+  position: relative;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* Centre the tick with a rotated L-shaped border. `display: none` while unchecked (not just
+   opacity) so the element can never affect layout or be picked up as a stray mark. */
+.shop_check::after {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  box-sizing: border-box;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(43deg);
+}
+
+/* `.checked` is supported alongside `.active` so the tick does not depend on one particular
+   class name on the row. */
+.shop_facet_list > li.active .shop_check,
+.shop_facet_list > li.checked .shop_check,
+/* A selected SUB-category: its <li> sits one level deeper, so the `>` selector above cannot
+   reach it -- without this the tick would not appear on e.g. ?category=sofa. */
+.shop_facet_list .shop_sub_categories > li.active .shop_check,
+.shop_facet_list .shop_sub_categories > li.checked .shop_check {
+  background: #c09578;
+  border-color: #c09578;
+}
+
+.shop_facet_list > li.active .shop_check::after,
+.shop_facet_list > li.checked .shop_check::after,
+.shop_facet_list .shop_sub_categories > li.active .shop_check::after,
+.shop_facet_list .shop_sub_categories > li.checked .shop_check::after {
+  display: block;
+}
+
+.shop_facet_list > li > a:hover .shop_check {
+  border-color: #c09578;
+}
+
+.shop_color_swatch {
+  /* Same reasoning as .shop_check: it must render as a square even inside the block-level
+     sub-category rows, so `display` is declared rather than inherited from the parent. */
+  display: inline-block;
+  vertical-align: middle;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 2px;
+  /* The row's `gap` already separates checkbox from swatch and swatch from label. The extra
+     right margin widens the swatch-to-label space, since the swatch and the label both read as
+     "the colour" and a bare gap there looks cramped. */
+  margin-right: 2px;
+}
+
+.shop_facet_label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Parent categories are group headers, not facet values: no checkbox, so the label sits flush
+   with the row's left edge (there is no sibling pushing it right). Bold, so they read as headers
+   above their sub-categories. The `active` highlight is preserved on the row, so selecting a
+   parent category still shows which one is chosen. */
+.widget_list.widget_categories .shop_facet_list .shop_facet_label--plain {
+  font-weight: 600;
+  color: #212121;
+  margin-top: 10px;
+}
+
+.widget_list.widget_categories .shop_facet_list > li.shop_parent_cat > a:hover {
+  color: #c09578;
+}
+
+.widget_list.widget_categories .shop_facet_list > li.shop_parent_cat.active > a,
+.widget_list.widget_categories .shop_facet_list > li.shop_parent_cat.active > a .shop_facet_label--plain {
+  color: #c09578;
+}
+
+/* ── Filter By Price ──────────────────────────────────────────────────────── */
+.shop_price_form {
+  margin-bottom: 24px;
+}
+
+.shop_price_range {
+  width: 100%;
+  accent-color: #c09578;
+  margin: 4px 0 10px;
+}
+
+.shop_price_text {
+  font-size: 13px;
+  color: #5a5a5a;
+  margin: 0 0 10px;
+}
+
+.shop_price_submit {
+  background: #c09578;
+  color: #fff;
+  border: 0;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.shop_price_submit:hover {
+  background: #b3876a;
+}
+
+/* ── Toolbar: Sort By label + select on the left, result count on the right ──── */
+.shop_sort_form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shop_sort_label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #5a5a5a;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.shop_sort_select {
+  min-width: 190px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.shop_sort_select:focus {
+  outline: none;
+  border-color: #c09578;
+}
+
+/* The theme's .orderby_wrapper floats/positions its heading; the toolbar is now a
+   flex row so the count can sit on the right. */
+.shop_toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.shop_toolbar .orderby_wrapper {
+  margin: 0;
+  padding: 0;
+  float: none;
+}
+
+.shop_toolbar .page_amount {
+  margin: 0;
+  text-align: right;
+}
+
+.shop_toolbar .page_amount p {
+  margin: 0;
+  font-size: 13px;
+  color: #5a5a5a;
+}
+
+/* Breadcrumb sits below the page title in the reference. */
+.shop_breadcrumb {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.shop_breadcrumb li {
+  font-size: 12px;
+  color: #7a7a7a;
+  list-style: none;
+}
+
+.shop_breadcrumb li a {
+  color: #7a7a7a;
+}
+
+.shop_breadcrumb li a:hover {
+  color: #c09578;
+}
+
+/* ── Active filter chips ─────────────────────────────────────────────────────
+   These had no styling anywhere (not in this file, not in the theme), so the chips
+   rendered as flush inline links: one chip's ✕ touched the next chip's text.
+   `flex` + `gap` gives each chip its own space and lets the row wrap when several
+   filters are active. The inner `gap` separates the label from its ✕ icon.
+   ───────────────────────────────────────────────────────────────────────────── */
+.shop_active_filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.shop_active_filters > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #c09578;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.shop_active_filters > a:hover {
+  background: #fdf7f2;
+  border-color: #c09578;
+}
+
+.shop_active_filters > a > i {
+  font-size: 11px;
+  line-height: 1;
+  color: #9a9a9a;
+}
+
+.shop_active_filters > a:hover > i {
+  color: #c09578;
+}
+
+/* Sort list inside the toolbar */
+.shop_sort_list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shop_sort_list li {
+  margin: 0 0 0 4px;
+}
+
+.shop_sort_list li:first-child {
+  margin-left: 0;
+}
+
+.shop_sort_list li a {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #5a5a5a;
+  background: #f1f1f1;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.shop_sort_list li a:hover {
+  color: #fff;
+  background: #c09578;
+}
+
+.shop_sort_list li.active a {
+  color: #fff;
+  background: #c09578;
+}
+
+/* Empty state */
+.shop_empty {
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px solid #ebebeb;
+  background: #fff;
+}
+
+.shop_empty p {
+  font-size: 15px;
+  color: #242424;
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+
+.shop_empty_btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #c09578;
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.shop_empty_btn:hover {
+  background: #242424;
+  color: #fff;
+}
+
+/* Sidebar stacks above content on small screens (theme handles col ordering) */
+@media only screen and (max-width: 991.98px) {
+  .widget_list.widget_categories {
+    margin-bottom: 10px;
+  }
+
+  .collapsible_filter_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .collapsible_filter_heading i {
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .collapsible_filter_body {
+    display: none;
+    padding: 12px 0;
+  }
+
+  .collapsible_filter.open .collapsible_filter_body {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .shop_facets.widget_list.widget_categories .shop_facet_list > li > a,
+  .shop_facets.widget_list.widget_categories .shop_sub_categories > li > a,
+  .shop_facets .shop_facet_label {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Shop page toolbar: stack sort/filter controls on mobile */
+  .shop_toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 15px;
+  }
+
+  .shop_toolbar .page_amount,
+  .shop_toolbar .orderby_wrapper {
+    width: 100%;
+  }
+
+  .shop_toolbar .orderby_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .shop_toolbar .orderby_wrapper h3 {
+    margin: 0;
+  }
+
+  .shop_sort_list {
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .shop_sort_list li a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Product grid: 1 per row on mobile */
+  .row > [class*="col-"] {
+    margin-bottom: 20px;
+  }
+
+  .shop_empty {
+    padding: 40px 20px;
+  }
+
+  .shop_empty p {
+    font-size: 14px;
+  }
+
+  .shop_empty_btn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .collapsible_filter_heading {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .collapsible_filter_heading i {
+    display: none;
+  }
+
+  .collapsible_filter_body {
+    display: block !important;
+  }
+}
+
+/* Extra small mobile */
+@media only screen and (max-width: 479px) {
+  .shop_toolbar {
+    padding: 10px 15px;
+  }
+
+  .shop_sort_list li a {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+}

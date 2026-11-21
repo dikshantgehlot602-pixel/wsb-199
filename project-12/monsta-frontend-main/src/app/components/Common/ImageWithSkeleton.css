@@ -1,0 +1,109 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Image skeleton / shimmer placeholder.
+
+   Wrapper for ImageWithSkeleton. Always `position: relative` so a next/image
+   `fill` child (rendered with position:absolute) resolves against it instead of
+   escaping to a distant ancestor.
+
+   Sizing modes, each mirroring how the call site already sized its own image so
+   the wrapper is a drop-in that never shifts layout:
+
+     (default)  the image is width/height:100% of its parent (carousel cards,
+                CSS-sized thumbnails) -> the wrapper fills that parent.
+     --fill     next/image `fill` -> the wrapper fills its positioned parent.
+     --sized    explicit width+height in a fixed box -> the wrapper takes
+                exactly those pixel dimensions.
+     --fluid    explicit width+height but a fluid `style` (e.g. width:100%)
+                -> the wrapper is full width and reserves the image's aspect
+                ratio, so the shimmer occupies the right space before the bytes
+                arrive and nothing reflows when the image swaps in.
+
+   NOTE ON SPECIFICITY: `.product_image` in ProductCard.css is a single class
+   (0,1,0) that sets `transition: transform .3s ease` for the hover zoom. A rule
+   of equal specificity would win or lose purely on stylesheet order, so the
+   image rules below are scoped under `.img-skeleton-wrapper` (0,2,0) to
+   deterministically win. The transition is re-declared so the fade-in keeps the
+   hover zoom transition too.
+   ───────────────────────────────────────────────────────────────────────────── */
+.img-skeleton-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+/* The grey backdrop is painted only while the image is in flight, so a loaded
+   image using object-fit:contain keeps the background it had before (the
+   letterbox area stays transparent, exactly as it was without the wrapper). */
+.img-skeleton-wrapper--loading {
+    background: #f0f0f0;
+}
+
+.img-skeleton-shimmer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: img-skeleton-shimmer 1.5s infinite linear;
+}
+
+@keyframes img-skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.img-skeleton-wrapper .img-skeleton-img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.img-skeleton-wrapper .img-skeleton-img.img-skeleton-img--loaded {
+    opacity: 1;
+}
+
+/* Shown when the source fails to load, so a broken upload never renders as the
+   browser's default missing-image glyph. */
+.img-skeleton-error {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #999;
+    font-size: 24px;
+    background: #f5f5f5;
+}
+
+.img-skeleton-wrapper--fill {
+    width: 100%;
+    height: 100%;
+}
+
+.img-skeleton-wrapper--fluid {
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .img-skeleton-shimmer {
+        animation: none;
+    }
+
+    .img-skeleton-wrapper .img-skeleton-img {
+        transition: transform 0.3s ease;
+    }
+}

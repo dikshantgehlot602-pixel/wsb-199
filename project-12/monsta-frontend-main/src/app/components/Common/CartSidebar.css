@@ -1,0 +1,111 @@
+/* Scoped overrides for the header mini-cart drawer. All base styling comes
+   from the theme (.mini_cart, .cart_item, .cart_info, .price_cart,
+   .mini_cart_footer, .cart_button in public/css/style.css). This file only
+   matches the reference screenshot's drawer width and thumbnail size. */
+
+/* Desktop drawer ~460px wide (theme default is 355px); stays inside the
+   viewport, mobile keeps the theme's 300px. */
+@media only screen and (min-width: 768px) {
+  .mini_cart {
+    min-width: 460px;
+    max-width: 100%;
+  }
+}
+
+/* ── Correction 1: product image / text overlap inside the drawer rows ────
+   Why the previous `.cart_img` override silently did nothing: this file is
+   bundled into the FIRST stylesheet of the document (Next.js component CSS),
+   while public/css/style.css is <link>ed AFTER it in layout.js. At equal
+   specificity the later sheet wins, so the theme's `.cart_img { width: 100px }`
+   beat this file's `width: 130px` — yet the thumbnail inside is a fixed 124px
+   box (ImageWithSkeleton wrapper), which therefore spilled ~14px over the
+   product name at every viewport width.
+
+   Every override below is prefixed with `.mini_cart` (specificity 0,2,0 vs
+   the theme's 0,1,0) so it wins regardless of stylesheet order.
+
+   Layout: `.cart_item` is the theme's flex row. The image column is PINNED
+   (flex: 0 0 130px) so it can never shrink under its 124px photo; the text
+   column takes the rest (flex: 1, min-width: 0) so long product names
+   ellipsize on a single line instead of colliding with the image. The
+   "Qty: N" line and the price stay stacked below the name as before
+   (theme: `.cart_info span { display: block }`). */
+
+/* The drawer is shrink-to-fit (position: fixed; right: 0). The single-line
+   ellipsis name below raises its min-content width past the viewport on
+   small screens (measured 611px of content at a 360px viewport), which for a
+   fixed shrink-to-fit box wins over the available width and pushes the drawer
+   off the left edge. Cap it at the viewport so the text column shrinks and
+   ellipsizes instead. The theme never sets max-width on .mini_cart, so this
+   only ever applies here; scoped to .mini_cart_scrollable (added by the React
+   drawer, per the note further down) to avoid touching any other .mini_cart. */
+.mini_cart.mini_cart_scrollable {
+  max-width: 100%;
+}
+
+.mini_cart .cart_img {
+  flex: 0 0 130px;
+  width: 130px;
+  margin-right: 10px;
+}
+
+.mini_cart .cart_img img {
+  width: 124px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.mini_cart .cart_info {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+/* Single-line ellipsis for the product name: overflow hidden + nowrap on the
+   h5 (the block containing the inline <a>), so text-overflow has somewhere
+   to paint the "…". */
+.mini_cart .cart_info h5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fix: the theme's shared overlay has `cursor: crosshair` (style.css:576),
+   which shows a "+" cursor while the mini-cart overlay is open. Scoped
+   override applied only when the cart overlay is active; the mobile
+   offcanvas menu keeps its original styling. */
+.off_canvars_overlay.cart_overlay_open.active,
+.off_canvars_overlay.cart_overlay_open {
+  cursor: default;
+}
+
+/* Fix: make the drawer itself the vertical scroll container. The theme sets
+   `overflow-x: auto` on .mini_cart (style.css:13870), which per CSS spec
+   forces computed overflow-y to auto too, but the browser then lets wheel
+   events chain to the page behind the drawer. Scoped to a second class so
+   this only applies while the React cart drawer is mounted (Header.jsx adds
+   `mini_cart_scrollable`), never to other .mini_cart usages.
+
+   Same class also fixes stacking: the theme gives the full-viewport overlay
+   (.off_canvars_overlay, style.css:569-583) and the drawer (.mini_cart,
+   style.css:1743-1753) the same position: fixed + z-index: 999, so DOM
+   order decides which paints on top — and the overlay is rendered AFTER the
+   header that contains the drawer (Header.jsx), putting it above the
+   drawer. The drawer ended up dimmed, and wheel/clicks over it landed on
+   the overlay instead of the cart (which also blocked the drawer's own
+   scrolling). z-index: 1000 raises the drawer one level above the overlay:
+   the overlay still darkens the page behind it and still closes the drawer
+   when clicked outside it, while the drawer stays white and interactive. */
+.mini_cart.mini_cart_scrollable {
+  z-index: 1000;
+  overflow-x: hidden; /* the 460px drawer never needs horizontal scroll */
+  overflow-y: auto;
+  /* Keep wheel events inside the drawer instead of scrolling the page
+     behind it once the drawer content is fully scrolled. */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mini_cart_footer .cart_button + .cart_button {
+  margin-top: 10px;
+}

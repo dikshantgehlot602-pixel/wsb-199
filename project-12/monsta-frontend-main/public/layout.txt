@@ -1,0 +1,35 @@
+furniture-app/
+├── public/
+│   ├── images/               # all downloaded images
+│   │   ├── logo.png
+│   │   ├── slider1.jpg
+│   │   ├── product1.jpg ...
+│   ├── css/                  # downloaded CSS files
+│   │   ├── style.css
+│   │   ├── plugins.css
+│   │   └── ...
+│   ├── js/                   # downloaded JS files (if needed)
+│   └── ...
+├── src/
+│   ├── app/
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   ├── globals.css       (global styles)
+│   │   ├── components/
+│   │   │   ├── Header.jsx
+│   │   │   ├── HeroSlider.jsx
+│   │   │   ├── BannerSection.jsx
+│   │   │   ├── ProductTabs.jsx
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── BestsellingProducts.jsx
+│   │   │   ├── ShippingArea.jsx
+│   │   │   ├── Testimonials.jsx
+│   │   │   ├── Newsletter.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── CartSidebar.jsx
+│   │   ├── context/
+│   │   │   └── CartContext.jsx
+│   │   ├── data/
+│   │   │   └── products.js
+│   │   └── ...
+│   ├── ...

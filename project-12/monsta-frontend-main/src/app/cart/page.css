@@ -1,0 +1,207 @@
+/* /cart — minimal additions on top of the theme's .table_desc/.cart_page cart
+   classes. Covers empty state, the quantity stepper, remove button, totals box,
+   and horizontal-overflow handling for the table on small screens. */
+
+.cart_area {
+  padding: 15px 0 70px;
+}
+
+@media only screen and (max-width: 767px) {
+  .cart_area {
+    padding-bottom: 46px;
+  }
+}
+
+/* Table overflow: keep the wide cart table inside a scroll container instead
+   of breaking the page layout on mobile. */
+.cart_table_wrap {
+  overflow-x: auto;
+}
+
+.cart_page table {
+  min-width: 620px;
+}
+
+/* Quantity stepper */
+.qty_controls {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.qty_controls .qty_btn,
+.qty_controls input {
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.qty_controls .qty_btn {
+  width: 32px;
+  padding: 0;
+  border: 1px solid #ebebeb;
+  background: #fff;
+  color: #242424;
+  cursor: pointer;
+}
+
+.qty_controls .qty_btn:hover {
+  color: #c09578;
+}
+
+.qty_controls .qty_btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media only screen and (max-width: 991.98px) {
+  .qty_controls .qty_btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+.qty_controls input {
+  width: 56px;
+  border: 1px solid #ebebeb;
+  text-align: center;
+}
+
+/* Remove button (theme styles anchor `.product_remove a`; ours is a button) */
+.cart_remove_btn {
+  border: none;
+  background: none;
+  color: #c09578;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+}
+
+.cart_remove_btn:hover {
+  color: #242424;
+}
+
+/* Continue Shopping (theme styles `.cart_submit button`; ours is a link) */
+.continue_shopping {
+  display: inline-block;
+  background: #212121;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  height: 38px;
+  line-height: 18px;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.continue_shopping:hover {
+  background: #c09578;
+  color: #fff;
+}
+
+/* Totals box */
+.cart_totals {
+  border: 1px solid #ebebeb;
+  padding: 20px;
+  margin-bottom: 70px;
+  background: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .cart_totals {
+    margin-bottom: 46px;
+    padding: 16px;
+  }
+
+  /* Stack subtotal rows on mobile */
+  .cart_totals .cart_subtotal {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cart_totals .cart_subtotal p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .cart_totals .cart_subtotal .cart_amount {
+    font-weight: 600;
+  }
+
+  /* Checkout button full width on mobile */
+  .cart_totals .checkout_btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  .cart_totals .checkout_btn a {
+    display: block;
+    padding: 12px 24px;
+    background: #c09578;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .cart_totals .checkout_btn a:hover {
+    background: #242424;
+  }
+}
+
+/* Empty state: the reference's markup (shopping_cart_area > about_thumb >
+   about_content) is styled by the theme (public/css/style.css); it needs
+   no component CSS here. */
+
+/* Mobile: continue shopping button full width */
+@media only screen and (max-width: 767px) {
+  .cart_submit {
+    margin-bottom: 20px;
+  }
+
+  .continue_shopping {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile: cart table font size adjustments */
+@media only screen and (max-width: 575px) {
+  .cart_page table {
+    min-width: 560px;
+    font-size: 13px;
+  }
+
+  .cart_page th,
+  .cart_page td {
+    padding: 8px 6px;
+    font-size: 13px;
+  }
+
+  .product_name {
+    font-size: 13px;
+  }
+
+  .qty_controls .qty_btn {
+    min-width: 44px;
+    min-height: 44px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .qty_controls input {
+    width: 44px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,442 @@
+/* /order-success — order confirmation receipt.
+   Self-contained: the theme has no equivalent page, so everything here is
+   namespaced under .order_success_* and built on the site's own tokens
+   (#c09578 accent, #212121 headings, #5a5a5a body, #ebebeb borders, Rubik). */
+
+.order_success_area {
+  background-color: #f5f5f5;
+  padding: 40px 0 70px;
+  font-family: 'Rubik', sans-serif;
+  color: #5a5a5a;
+}
+
+.order_success_card {
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Success header ── */
+.order_success_header {
+  text-align: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+/* Green circle + check, drawn with CSS so no new image asset is needed. */
+.order_success_icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background-color: #eaf7ee;
+  border: 2px solid #2e7d32;
+  color: #2e7d32;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.order_success_header h1 {
+  margin: 0 0 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #242424;
+  line-height: 1.2;
+}
+
+.order_success_lead {
+  margin: 0 auto;
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #5a5a5a;
+}
+
+/* ── Meta strip: Order ID / Payment Method / Amount Paid ── */
+.order_success_meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px 0 30px;
+  border: 1px solid #ebebeb;
+  background-color: #fafafa;
+}
+
+.order_success_meta_item {
+  flex: 1 1 200px;
+  padding: 15px 20px;
+  border-right: 1px solid #ebebeb;
+}
+
+
+/* ── Body: items (left) + address (right) ── */
+.order_success_body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.order_success_items {
+  flex: 1 1 460px;
+  min-width: 0;
+}
+
+.order_success_address {
+  flex: 0 1 300px;
+  min-width: 0;
+}
+
+.order_success_items h2,
+.order_success_address h2 {
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+  font-size: 17px;
+  font-weight: 700;
+  color: #242424;
+  text-transform: capitalize;
+}
+
+/* ── Item rows ── */
+.order_success_item_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order_success_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 14px;
+}
+
+.order_success_item_info {
+  flex: 1;
+  min-width: 0;
+}
+
+.order_success_item_name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.order_success_item_category {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+.order_success_item_qty {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #5a5a5a;
+  white-space: nowrap;
+}
+
+.order_success_item_total {
+  flex-shrink: 0;
+  min-width: 90px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+  color: #c09578;
+  white-space: nowrap;
+}
+
+/* ── Totals ── */
+.order_success_totals {
+  margin-top: 18px;
+  padding: 15px 18px;
+
+/* ── Address blocks ── */
+.order_success_address_block {
+  margin-bottom: 20px;
+}
+
+.order_success_address_label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.order_success_address_value {
+  margin: 0;
+  font-size: 14px;
+  line-height: 23px;
+  color: #212121;
+  word-break: break-word;
+}
+
+/* ── Actions ── */
+.order_success_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #ebebeb;
+}
+
+.order_success_btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #c09578;
+  border: 1px solid #c09578;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.order_success_btn:hover {
+  background-color: #212121;
+  border-color: #212121;
+  color: #fff;
+}
+
+.order_success_btn_secondary {
+  background-color: #fff;
+  border-color: #212121;
+  color: #212121;
+}
+
+.order_success_btn_secondary:hover {
+  background-color: #212121;
+  color: #fff;
+}
+
+/* ── Empty / fallback states ── */
+.order_success_empty {
+  max-width: 560px;
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media only screen and (max-width: 991px) {
+  .order_success_body {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .order_success_address {
+    flex: 1 1 auto;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .order_success_area {
+    padding: 25px 0 46px;
+  }
+
+  .order_success_card {
+    padding: 25px 18px;
+  }
+
+  .order_success_header h1 {
+    font-size: 24px;
+  }
+
+  .order_success_meta_item {
+    flex: 1 1 100%;
+    border-right: none;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .order_success_meta_item:last-child {
+    border-bottom: none;
+  }
+
+  /* Name on its own line, qty + total beneath it. */
+  .order_success_item {
+    flex-wrap: wrap;
+  }
+
+  .order_success_item_info {
+    flex: 1 1 100%;
+  }
+
+  .order_success_item_total {
+    text-align: left;
+  }
+
+  .order_success_actions {
+    flex-direction: column;
+  }
+
+  .order_success_btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+  text-align: center;
+}
+
+.order_success_empty h1 {
+  margin: 0 0 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #242424;
+}
+
+.order_success_empty p {
+  margin: 0 0 25px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.order_success_note {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #5a5a5a;
+}
+
+  border: 1px solid #ebebeb;
+  background-color: #fafafa;
+}
+
+.order_success_total_row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #5a5a5a;
+}
+
+.order_success_total_grand {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #ebebeb;
+  font-size: 16px;
+  font-weight: 700;
+  color: #212121;
+}
+
+.order_success_total_grand span:last-child {
+  color: #c09578;
+}
+
+.order_success_meta_item:last-child {
+  border-right: none;
+}
+
+.order_success_meta_label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.order_success_meta_value {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #212121;
+  word-break: break-word;
+}
+
+/* Extra small mobile: order success adjustments */
+@media only screen and (max-width: 479px) {
+  .order_success_area {
+    padding: 20px 0 40px;
+  }
+
+  .order_success_card {
+    padding: 20px 14px;
+  }
+
+  .order_success_header h1 {
+    font-size: 22px;
+  }
+
+  .order_success_lead {
+    font-size: 13px;
+    line-height: 22px;
+  }
+
+  .order_success_icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .order_success_meta_item {
+    padding: 12px 16px;
+  }
+
+  .order_success_meta_label {
+    font-size: 10px;
+  }
+
+  .order_success_meta_value {
+    font-size: 14px;
+  }
+
+  .order_success_items h2,
+  .order_success_address h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .order_success_item_name {
+    font-size: 13px;
+  }
+
+  .order_success_item_total {
+    font-size: 13px;
+    min-width: 70px;
+  }
+
+  .order_success_total_row {
+    font-size: 13px;
+    padding: 5px 0;
+  }
+
+  .order_success_total_grand {
+    font-size: 15px;
+    padding-top: 10px;
+  }
+
+  .order_success_btn {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+
+  .order_success_empty {
+    padding: 30px 16px;
+  }
+
+  .order_success_empty h1 {
+    font-size: 22px;
+  }
+
+  .order_success_empty p {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+}
